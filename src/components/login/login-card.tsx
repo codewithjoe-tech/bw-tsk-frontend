@@ -11,7 +11,7 @@ import { loginSchema, registerSchema } from "../../schemas"
 import LoginForm from "../Forms/login-form"
 import RegisterForm from "../Forms/register-form"
 import type { AxiosError } from "axios"
-import { getCookie } from "typescript-cookie"
+import { getCookie, setCookie } from "typescript-cookie"
 import { useState } from "react"
 import Otp from "../otp"
 import { useNavigate } from "react-router-dom"
@@ -46,6 +46,7 @@ export function AuthCard() {
 
       const response = await axiosInstance.post("/api/auth/login", values)
       if (response.status === 200) {
+        setCookie('loggedin', 'true')
        
         navigate('/')
         toast.success("Login Successfull", {

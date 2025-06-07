@@ -6,6 +6,7 @@ import { toast } from "sonner"
 import axiosInstance from "../../axios"
 import type { AxiosError } from "axios"
 import { useNavigate } from "react-router-dom"
+import { setCookie } from "typescript-cookie"
 
 const MAX_ATTEMPTS = 3
 
@@ -104,6 +105,7 @@ const Otp = () => {
                     description: "You have logged in successfully"
                 })
                 // success logic
+                setCookie('loggedin', 'true')
                 navigate('/')
             }
         } catch (error: unknown) {
