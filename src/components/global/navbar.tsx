@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { LogOut, Plus } from "lucide-react";
 import axiosInstance from "../../axios";
 import { useNavigate } from "react-router-dom";
+import { removeCookie } from "typescript-cookie";
 
 const Navbar = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -11,6 +12,7 @@ const Navbar = () => {
     const response = await axiosInstance.post("/api/auth/logout");
     if (response.status === 200) {
     //   window.location.href = "/auth";
+    removeCookie('loggedin')
       navigate('/auth')
     }
   }
