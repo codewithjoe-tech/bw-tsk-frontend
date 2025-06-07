@@ -1,10 +1,13 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import {getCookie} from 'typescript-cookie'
+import axiosInstance from "../axios";
 
 interface UserType {
   full_name: string;
   id: string;
   is_verified: boolean;
+  email : string
 }
 
 interface UserContextType {
@@ -14,18 +17,25 @@ interface UserContextType {
   isError: boolean;
 }
 
-const UserContext = createContext<UserContextType>({
+export const UserContext = createContext<UserContextType>({
   user: null,
   isLoggedIn: false,
   isLoading: true,
   isError: false,
 });
 
-const fetchUser = async () => {
+const fetchUser = async (): Promise<UserType> => {
+  const response = await axiosInstance.get("/api/auth/me");
+  return response.data;
 
 };
 
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const isloggedin = getCookie('loggedin')
+  useEffect(() => {
+   console.log(isloggedin)
+  }, [isloggedin])
+  
   const { data, isLoading, isError } = useQuery({
     queryKey: ["currentUser"],
     queryFn: fetchUser,

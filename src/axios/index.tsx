@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
 
@@ -18,7 +18,7 @@ axiosInstance.interceptors.response.use(
 
       try {
         await axios.post(
-          `${process.env.VITE_API_URL}/user/refresh-token/`,
+          `${import.meta.env.VITE_API_URL}/api/auth/refresh`,
           {},
           { withCredentials: true }
         );
@@ -31,12 +31,7 @@ axiosInstance.interceptors.response.use(
     }
 
     if (status === 429) {
-      const message =
-        error.response?.data?.message ||
-        'Too many requests. Please try again later.';
-    toast.warning('Too many requests.',{
-        description : message
-    })
+
     }
 
     return Promise.reject(error);
