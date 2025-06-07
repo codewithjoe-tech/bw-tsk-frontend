@@ -4,6 +4,7 @@ import LoginPage from "./app/auth/login-page"
 import ReactQueryProvider from "./Providers/react-query"
 import { UserContextProvider } from "./context/user-context"
 import { Toaster } from "sonner"
+import type { ToasterProps } from "sonner";
 import EmailVerify from "./app/auth/email-verify"
 import MainLayout from "./Layouts/main-layout"
 import Home from "./app/Home"
